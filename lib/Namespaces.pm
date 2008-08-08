@@ -8,7 +8,7 @@ no warnings;
 use subs qw();
 use vars qw($VERSION);
 
-$VERSION = '0.10_01';
+$VERSION = '0.11_01';
 
 use Carp qw(croak);
 use PPI;
@@ -92,9 +92,10 @@ sub from_file
 	my( $class, $file ) = @_;
 
 	my $Document = $class->get_pdom( $file );
+	return unless $Document;
 	
 	my @namespaces = $class->get_namespaces_from_pdom( $Document );
-		
+	
 	if( wantarray ) { @namespaces }
 	else            { $namespaces[0] }
 	}
@@ -174,9 +175,11 @@ sub pdom_preprocess
 	{ 
 	my( $class, $Document ) = @_;
 
-	$class->pdom_strip_pod( $Document );
-	$class->pdom_strip_comments( $Document );
-	
+	eval {
+		$class->pdom_strip_pod( $Document );
+		$class->pdom_strip_comments( $Document );
+		};
+		
 	return 1;
 	}
 
@@ -218,10 +221,16 @@ sub get_namespaces_from_pdom
 			}
 		);
 	
-	my @namespaces = map {
-		/package \s+ (\w+(::\w+)*) \s* ; /x;
-		$1
-		} @$package_statements;
+	my @namespaces = eval {
+		map {
+			/package \s+ (\w+(::\w+)*) \s* ; /x;
+			$1
+			} @$package_statements
+		};
+		
+	#print STDERR "Got namespaces @namespaces\n";
+	
+	@namespaces;
 		
 	}	
 
