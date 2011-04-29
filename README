@@ -1,5 +1,3 @@
-$Id: README,v 1.1 2004/09/08 00:25:41 comdog Exp $
-
 You can install this using in the usual Perl fashion
 
 	perl Makefile.PL
@@ -15,12 +13,11 @@ the file, you can read it with perldoc.
 If you want to read it before you install it, you can use
 perldoc directly on the module file.
 
-	perldoc  lib/Namespaces.pm
+	perldoc  lib/Module/Extract/Namespaces.pm
 	
-This module is also in CVS on SourceForge
+This module is also in Github:
 
-	http://sourceforge.net/projects/brian-d-foy/
-
+	https://github.com/briandfoy/module-extract-namespaces
 
 Enjoy, 
 
