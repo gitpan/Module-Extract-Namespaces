@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Module-Extract-Namespaces
-version:            0.14_01
+version:            0.14_02
 abstract:           This is what the module does
 author:
     - brian d foy <bdfoy@cpan.org>
